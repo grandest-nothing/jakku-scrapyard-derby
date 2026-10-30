@@ -1,6 +1,6 @@
-# Jakku Scrapyard Derby
+# Boonta Eve Scrapyard Derby
 
-A fan-made demolition derby event site with a dark Mad Max x Star Wars look. Plain HTML, CSS and JS, so it needs no build step.
+A fan-made demolition derby event site with a dark Mad Max x Star Wars look, set at the Mos Espa Grand Arena on Tatooine. Plain HTML, CSS and JS, so it needs no build step.
 
 ## Fonts (Adobe Fonts)
 
