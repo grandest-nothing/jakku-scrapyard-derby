@@ -1,7 +1,9 @@
 (() => {
+  const boot = () => {
   const stage = document.getElementById('stage');
   const art = window.CAR_ART;
-  if (!stage || !art) return;
+  const code = window.CODE_CARS;
+  if (!stage || (!art && !code)) return;
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const section = document.getElementById('scene');
   const world = document.getElementById('world');
@@ -14,32 +16,19 @@
 
   const sprite = (key, o) => {
     const a = art[key], w = a.w, h = a.h;
-    const dmg = `M${w} ${h * 0.3} L${w - 26} ${h * 0.42} L${w - 8} ${h * 0.52} L${w - 34} ${h * 0.62} L${w - 12} ${h * 0.74} L${w} ${h * 0.86}Z`;
-    const cracks = `M${w - 26} ${h * 0.42} L${w - 54} ${h * 0.38} M${w - 34} ${h * 0.62} L${w - 60} ${h * 0.68}`;
-    return `<svg class='carsvg' viewBox='0 0 ${w} ${h + 18}' aria-hidden='true'><defs><clipPath id='cp${key}'><path d='${a.s}'/></clipPath>`
-      + `<filter id='rc${key}' x='0' y='0' width='100%' height='100%'><feTurbulence type='fractalNoise' baseFrequency='.018 .03' numOctaves='3' seed='11'/><feColorMatrix type='matrix' values='0 0 0 0 .78 0 0 0 0 .32 0 0 0 0 .08 14 0 0 0 -7.4'/></filter>`
-      + `<filter id='sc${key}' x='0' y='0' width='100%' height='100%'><feTurbulence type='fractalNoise' baseFrequency='.003 .9' numOctaves='2' seed='5'/><feColorMatrix type='matrix' values='0 0 0 0 .95 0 0 0 0 .9 0 0 0 0 .8 22 0 0 0 -14'/></filter>`
-      + `<filter id='gl${key}'><feGaussianBlur stdDeviation='3'/></filter>`
-      + `<linearGradient id='lg${key}' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='#fff' stop-opacity='.35'/><stop offset='.55' stop-color='#fff' stop-opacity='0'/><stop offset='1' stop-color='#000' stop-opacity='.4'/></linearGradient></defs>`
-      + `<rect x='${w * 0.08}' y='${h + 1}' width='${w * 0.84}' height='6' rx='3' fill='${o.glow}' opacity='.55' filter='url(#gl${key})'/><rect x='${w * 0.1}' y='${h + 3}' width='${w * 0.8}' height='2.4' rx='1.2' fill='${o.glow}' opacity='.95'/>`
-      + `<g class='body'><path d='${a.s}' fill='#090706' stroke='#000' stroke-width='1.4' stroke-linejoin='round' fill-rule='evenodd'/>`
-      + `<path d='${a.a}' fill='${o.a}' stroke='rgba(0,0,0,.55)' stroke-width='.7' stroke-linejoin='round' fill-rule='evenodd'/>`
-      + `<path d='${a.b}' fill='${o.b}' stroke='rgba(0,0,0,.5)' stroke-width='.6' stroke-linejoin='round' fill-rule='evenodd'/>`
-      + `<path d='${a.c}' fill='${o.c}' stroke='rgba(255,240,210,.35)' stroke-width='.6' stroke-linejoin='round' fill-rule='evenodd'/>`
-      + `<g clip-path='url(#cp${key})'><rect width='${w}' height='${h}' filter='url(#rc${key})' opacity='.6' style='mix-blend-mode:multiply'/><rect width='${w}' height='${h}' filter='url(#sc${key})' opacity='.5'/><rect width='${w}' height='${h}' fill='url(#lg${key})'/></g>`
-      + `<g class='dmg' opacity='0'><path d='${dmg}' fill='#090706'/><path d='${cracks}' stroke='#d9631e' stroke-width='2' fill='none'/></g></g></svg>`;
+    return `<svg class='carsvg' viewBox='0 0 ${w} ${h + 18}' aria-hidden='true'><g class='body'><path d='${a.s}' fill='#090706' fill-rule='evenodd'/><path d='${a.a}' fill='${o.a}' fill-rule='evenodd'/><path d='${a.b}' fill='${o.b}' fill-rule='evenodd'/><path d='${a.c}' fill='${o.c}' fill-rule='evenodd'/><g class='dmg' opacity='0'></g></g></svg>`;
   };
 
   const defs = [
-    { key: 'A', id: 'carA', file: 'cars/car-a.png', flip: false, a: '#3f3a35', b: '#8a7f72', c: '#d4c7ae', glow: '#27d6e0' },
-    { key: 'D', id: 'carD', file: 'cars/car-d.png', flip: true, a: '#3a3430', b: '#7d6f60', c: '#c9b894', glow: '#ff3fa4' },
-    { key: 'C', id: 'carC', file: 'cars/car-c.png', flip: true, a: '#34383a', b: '#6f7478', c: '#c4c6c0', glow: '#ff8a2a' }
+    { key: 'A', id: 'carA', file: 'cars/car-a.png', flip: false, a: '#3f3a35', b: '#8a7f72', c: '#d4c7ae', glow: '#27d6e0', top: '#b06a3c', mid: '#7a4325', bot: '#2e180c', seed: 3 },
+    { key: 'D', id: 'carD', file: 'cars/car-d.png', flip: true, a: '#3a3430', b: '#7d6f60', c: '#c9b894', glow: '#ff3fa4', top: '#b59a68', mid: '#7d6a45', bot: '#2c2316', seed: 8 },
+    { key: 'C', id: 'carC', file: 'cars/car-c.png', flip: true, a: '#34383a', b: '#6f7478', c: '#c4c6c0', glow: '#ff8a2a', top: '#6b705a', mid: '#474b39', bot: '#1b1d15', seed: 14 }
   ];
   const cars = defs.map((o) => {
     const el = document.getElementById(o.id);
-    el.innerHTML = sprite(o.key, o);
-    const a = art[o.key];
-    return { el, w: a.w, h: a.h, photo: false, flip: o.flip, body: el.querySelector('.body'), dmg: el.querySelector('.dmg') };
+    el.innerHTML = code ? code.make[o.key](o) : sprite(o.key, o);
+    const dm = code ? code.dim[o.key] : art[o.key];
+    return { el, w: dm.w, h: dm.h, photo: false, flip: o.flip, body: el.querySelector('.body'), dmg: el.querySelector('.dmg'), wheels: Array.from(el.querySelectorAll('.wheel')) };
   });
   const A = cars[0], D = cars[1], C = cars[2];
 
@@ -58,6 +47,7 @@
       c.body = body;
       c.dmg = d;
       c.photo = true;
+      c.wheels = [];
       c.el.classList.add('photo');
     };
     img.src = o.file;
@@ -71,6 +61,10 @@
     c.body.style.transformOrigin = c.photo ? (c.flip ? '0% 60%' : '100% 60%') : `${c.w}px ${c.h * 0.6}px`;
     c.body.style.transform = `scale(${(1 - 0.15 * k).toFixed(3)},${(1 + 0.04 * k).toFixed(3)}) skewY(${(-3 * k).toFixed(2)}deg)`;
     c.dmg.style.opacity = k.toFixed(2);
+    if (c.wheels.length) {
+      const wr = ((c.flip ? -x : x) * 0.55).toFixed(1);
+      c.wheels.forEach((w) => { w.style.transform = `rotate(${wr}deg)`; });
+    }
   };
 
   const parts = [];
@@ -187,4 +181,10 @@
     requestAnimationFrame(frame);
   };
   frame();
+  };
+  const s = document.createElement('script');
+  s.src = 'cars-code.js';
+  s.onload = boot;
+  s.onerror = boot;
+  document.head.appendChild(s);
 })();
