@@ -11,10 +11,11 @@
 #carD{width:clamp(168px,45vw,580px)}
 #carC{width:clamp(158px,42vw,540px)}
 .car svg.carsvg{filter:none;shape-rendering:geometricPrecision}
+.car svg.carsvg > rect{display:none}
+.car.photo .glowline{display:none}
 .car.photo .body{position:relative}
 .car.photo img.carimg{display:block;width:100%;height:auto;user-select:none;-webkit-user-drag:none;filter:drop-shadow(0 14px 10px rgba(0,0,0,.55))}
 .car.flip.photo img.carimg{transform:scaleX(-1)}
-.car.photo .glowline{position:absolute;left:10%;right:10%;bottom:-3px;height:3px;border-radius:2px}
 .car.photo .dmgfx{position:absolute;top:28%;width:20%;height:55%;background:#090706;clip-path:polygon(100% 0,35% 18%,70% 36%,10% 52%,60% 70%,0 86%,100% 100%);opacity:0;pointer-events:none}
 .car.photo:not(.flip) .dmgfx{right:0}
 .car.photo.flip .dmgfx{left:0;transform:scaleX(-1)}
