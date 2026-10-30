@@ -7,7 +7,7 @@ A fan-made demolition derby event site with a dark Mad Max x Star Wars look. Pla
 - Titles: Octin Stencil Black
 - Body: Octin Vintage A Regular
 
-Create a Web Project at fonts.adobe.com, add both fonts, and copy the kit ID. Then replace `YOUR_KIT_ID` in the `<link>` in `index.html`. If a font does not appear, check the CSS names listed in your project and update `--title` and `--body` in `styles.css`.
+Fonts load from the Adobe Fonts Web Project with kit ID `lgl5qkx` (see the `<link>` in `index.html`). The project must include both fonts. If a font does not appear, check the CSS names listed in the project and update `--title` and `--body` in `styles.css`. Also make sure this site's domain is allowed in the project, if domains are restricted.
 
 Adobe Fonts must load through the embed link. Do not add font files to this repo.
 
