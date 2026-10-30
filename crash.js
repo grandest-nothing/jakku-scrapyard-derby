@@ -117,7 +117,7 @@
     const W = stage.clientWidth, H = stage.clientHeight;
     const cwA = A.el.offsetWidth, cwD = D.el.offsetWidth, cwC = C.el.offsetWidth, mid = W / 2;
     const aI = mid - cwA + cwA * 0.07, dI = mid - cwD * 0.07;
-    const a0 = W * 0.05, d0 = W - cwD - W * 0.05;
+    const a0 = -cwA * 1.15, d0 = W - cwD - W * 0.05;
     const t = cl(p / 0.35), e = Math.pow(t, 1.8);
     const u = cl((p - 0.35) / 0.18), eo = 1 - Math.pow(1 - u, 3);
     const w = cl((p - 0.58) / 0.22), ew = w * w;
@@ -136,7 +136,7 @@
     const s2 = p >= 0.8 && p < 0.88 ? 1 - (p - 0.8) / 0.08 : 0;
     const amp = reduce ? 0 : Math.max(s1, s2);
     world.style.transform = amp ? `translate(${((Math.random() - 0.5) * 14 * amp).toFixed(1)}px,${((Math.random() - 0.5) * 10 * amp).toFixed(1)}px)` : '';
-    const f = cl((p - 0.04) / 0.22);
+    const f = cl((p - 0.02) / 0.14);
     heroInner.style.opacity = (1 - f).toFixed(3);
     heroInner.style.transform = `translateY(${(-f * 50).toFixed(1)}px)`;
     heroInner.style.pointerEvents = f > 0.6 ? 'none' : '';
