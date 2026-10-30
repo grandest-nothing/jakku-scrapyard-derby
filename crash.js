@@ -31,23 +31,44 @@
   };
 
   const defs = [
-    { key: 'A', id: 'carA', a: '#3f3a35', b: '#8a7f72', c: '#d4c7ae', glow: '#27d6e0' },
-    { key: 'D', id: 'carD', a: '#3a3430', b: '#7d6f60', c: '#c9b894', glow: '#ff3fa4' },
-    { key: 'C', id: 'carC', a: '#34383a', b: '#6f7478', c: '#c4c6c0', glow: '#ff8a2a' }
+    { key: 'A', id: 'carA', file: 'cars/car-a.png', flip: false, a: '#3f3a35', b: '#8a7f72', c: '#d4c7ae', glow: '#27d6e0' },
+    { key: 'D', id: 'carD', file: 'cars/car-d.png', flip: true, a: '#3a3430', b: '#7d6f60', c: '#c9b894', glow: '#ff3fa4' },
+    { key: 'C', id: 'carC', file: 'cars/car-c.png', flip: true, a: '#34383a', b: '#6f7478', c: '#c4c6c0', glow: '#ff8a2a' }
   ];
   const cars = defs.map((o) => {
     const el = document.getElementById(o.id);
     el.innerHTML = sprite(o.key, o);
     const a = art[o.key];
-    return { el, w: a.w, h: a.h, body: el.querySelector('.body'), dmg: el.querySelector('.dmg') };
+    return { el, w: a.w, h: a.h, photo: false, flip: o.flip, body: el.querySelector('.body'), dmg: el.querySelector('.dmg') };
   });
   const A = cars[0], D = cars[1], C = cars[2];
+
+  const upgrade = (c, o) => {
+    const img = new Image();
+    img.onload = () => {
+      c.el.innerHTML = `<div class='body'></div><i class='glowline' style='background:${o.glow};box-shadow:0 0 14px 3px ${o.glow}'></i>`;
+      const body = c.el.querySelector('.body');
+      img.className = 'carimg';
+      img.alt = '';
+      img.draggable = false;
+      body.appendChild(img);
+      const d = document.createElement('div');
+      d.className = 'dmgfx';
+      body.appendChild(d);
+      c.body = body;
+      c.dmg = d;
+      c.photo = true;
+      c.el.classList.add('photo');
+    };
+    img.src = o.file;
+  };
+  cars.forEach((c, i) => upgrade(c, defs[i]));
 
   const lerp = (a, b, t) => a + (b - a) * t;
   const cl = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
   const place = (c, x, y, rot, k) => {
     c.el.style.transform = `translate3d(${x.toFixed(1)}px,${y.toFixed(1)}px,0) rotate(${rot.toFixed(2)}deg)`;
-    c.body.style.transformOrigin = `${c.w}px ${c.h * 0.6}px`;
+    c.body.style.transformOrigin = c.photo ? (c.flip ? '0% 60%' : '100% 60%') : `${c.w}px ${c.h * 0.6}px`;
     c.body.style.transform = `scale(${(1 - 0.15 * k).toFixed(3)},${(1 + 0.04 * k).toFixed(3)}) skewY(${(-3 * k).toFixed(2)}deg)`;
     c.dmg.style.opacity = k.toFixed(2);
   };
