@@ -10,7 +10,7 @@
 #carA{width:clamp(150px,40vw,520px)}
 #carD{width:clamp(168px,45vw,580px)}
 #carC{width:clamp(158px,42vw,540px)}
-.car svg.carsvg{filter:drop-shadow(0 0 7px rgba(79,209,217,.3))}
+.car svg.carsvg{filter:none;shape-rendering:geometricPrecision}
 .scene .crash-title{top:12vh;z-index:5}
 .cue{position:absolute;left:50%;bottom:calc(16vh + 70px);transform:translateX(-50%);z-index:6;text-align:center;font-family:var(--title);font-weight:var(--title-w);text-transform:uppercase;letter-spacing:.3em;font-size:12px;color:var(--sand);pointer-events:none}
 .cue i{display:block;width:2px;height:34px;margin:10px auto 0;background:linear-gradient(var(--ember),transparent);animation:cue 1.6s ease-in-out infinite}

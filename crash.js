@@ -16,11 +16,18 @@
     const a = art[key], w = a.w, h = a.h;
     const dmg = `M${w} ${h * 0.3} L${w - 26} ${h * 0.42} L${w - 8} ${h * 0.52} L${w - 34} ${h * 0.62} L${w - 12} ${h * 0.74} L${w} ${h * 0.86}Z`;
     const cracks = `M${w - 26} ${h * 0.42} L${w - 54} ${h * 0.38} M${w - 34} ${h * 0.62} L${w - 60} ${h * 0.68}`;
-    return `<svg class='carsvg' viewBox='0 0 ${w} ${h + 18}' aria-hidden='true'><defs><clipPath id='cp${key}'><path d='${a.s}'/></clipPath></defs>`
-      + `<ellipse cx='${w / 2}' cy='${h + 2}' rx='${w * 0.46}' ry='8' fill='${o.glow}' opacity='.65' filter='url(#blur8)'/>`
-      + `<g class='body'><path d='${a.s}' fill='#0a0807' fill-rule='evenodd'/><path d='${a.a}' fill='${o.a}' fill-rule='evenodd'/><path d='${a.b}' fill='${o.b}' fill-rule='evenodd'/><path d='${a.c}' fill='${o.c}' fill-rule='evenodd'/>`
-      + `<g clip-path='url(#cp${key})'><rect width='${w}' height='${h}' filter='url(#rustfx)' opacity='.5'/><rect width='${w}' height='${h}' filter='url(#scratch)' opacity='.3'/></g>`
-      + `<g class='dmg' opacity='0'><path d='${dmg}' fill='#0a0807'/><path d='${cracks}' stroke='#d9631e' stroke-width='2' fill='none'/></g></g></svg>`;
+    return `<svg class='carsvg' viewBox='0 0 ${w} ${h + 18}' aria-hidden='true'><defs><clipPath id='cp${key}'><path d='${a.s}'/></clipPath>`
+      + `<filter id='rc${key}' x='0' y='0' width='100%' height='100%'><feTurbulence type='fractalNoise' baseFrequency='.018 .03' numOctaves='3' seed='11'/><feColorMatrix type='matrix' values='0 0 0 0 .78 0 0 0 0 .32 0 0 0 0 .08 14 0 0 0 -7.4'/></filter>`
+      + `<filter id='sc${key}' x='0' y='0' width='100%' height='100%'><feTurbulence type='fractalNoise' baseFrequency='.003 .9' numOctaves='2' seed='5'/><feColorMatrix type='matrix' values='0 0 0 0 .95 0 0 0 0 .9 0 0 0 0 .8 22 0 0 0 -14'/></filter>`
+      + `<filter id='gl${key}'><feGaussianBlur stdDeviation='3'/></filter>`
+      + `<linearGradient id='lg${key}' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='#fff' stop-opacity='.35'/><stop offset='.55' stop-color='#fff' stop-opacity='0'/><stop offset='1' stop-color='#000' stop-opacity='.4'/></linearGradient></defs>`
+      + `<rect x='${w * 0.08}' y='${h + 1}' width='${w * 0.84}' height='6' rx='3' fill='${o.glow}' opacity='.55' filter='url(#gl${key})'/><rect x='${w * 0.1}' y='${h + 3}' width='${w * 0.8}' height='2.4' rx='1.2' fill='${o.glow}' opacity='.95'/>`
+      + `<g class='body'><path d='${a.s}' fill='#090706' stroke='#000' stroke-width='1.4' stroke-linejoin='round' fill-rule='evenodd'/>`
+      + `<path d='${a.a}' fill='${o.a}' stroke='rgba(0,0,0,.55)' stroke-width='.7' stroke-linejoin='round' fill-rule='evenodd'/>`
+      + `<path d='${a.b}' fill='${o.b}' stroke='rgba(0,0,0,.5)' stroke-width='.6' stroke-linejoin='round' fill-rule='evenodd'/>`
+      + `<path d='${a.c}' fill='${o.c}' stroke='rgba(255,240,210,.35)' stroke-width='.6' stroke-linejoin='round' fill-rule='evenodd'/>`
+      + `<g clip-path='url(#cp${key})'><rect width='${w}' height='${h}' filter='url(#rc${key})' opacity='.6' style='mix-blend-mode:multiply'/><rect width='${w}' height='${h}' filter='url(#sc${key})' opacity='.5'/><rect width='${w}' height='${h}' fill='url(#lg${key})'/></g>`
+      + `<g class='dmg' opacity='0'><path d='${dmg}' fill='#090706'/><path d='${cracks}' stroke='#d9631e' stroke-width='2' fill='none'/></g></g></svg>`;
   };
 
   const defs = [
