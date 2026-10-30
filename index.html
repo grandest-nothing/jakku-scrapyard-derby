@@ -8,6 +8,7 @@
 <meta name='theme-color' content='#0a0807'>
 <link rel='stylesheet' href='https://use.typekit.net/lgl5qkx.css'>
 <link rel='stylesheet' href='styles.css'>
+<link rel='stylesheet' href='scene.css'>
 </head>
 <body>
 <svg width='0' height='0' style='position:absolute' aria-hidden='true'><defs>
@@ -31,12 +32,12 @@
 </nav>
 </header>
 <main id='top'>
-<section class='hero'>
+<section class='scene' id='scene'>
+<div class='stage hero' id='stage'>
 <div class='sun sun-a'></div><div class='sun sun-b'></div>
-<div class='wreck' aria-hidden='true'></div>
 <div class='dunes' aria-hidden='true'></div>
-<div class='hero-inner'>
-<h1 data-reveal>Jakku<br>Scrapyard<br><em>Derby</em></h1>
+<div class='hero-inner' id='heroInner'>
+<h1 data-reveal>Jakku<br>Scrapyard <em>Derby</em></h1>
 <p class='tagline' data-reveal style='--d:140ms'>No brakes. No mercy. One survivor.</p>
 <p class='when' data-reveal style='--d:240ms'>Sat Nov 14 &middot; Gates 5 PM &middot; Crash 7 PM</p>
 <div class='cta' data-reveal style='--d:340ms'>
@@ -44,25 +45,22 @@
 <a class='btn ghost' href='#find-us'>Find the Track</a>
 </div>
 </div>
-<div class='scroll-hint' aria-hidden='true'>Scroll</div>
+<h2 class='crash-title' id='crashTitle'></h2>
+<div class='cue' id='cue' aria-hidden='true'><span>Scroll</span><i></i></div>
+<div class='flash' id='flash'></div>
+<div class='world' id='world'>
+<div class='car' id='carA'></div>
+<div class='car flip' id='carD'></div>
+<div class='car flip' id='carC'></div>
+</div>
+<canvas id='fx' aria-hidden='true'></canvas>
+<div class='road'></div>
+</div>
 </section>
 <section class='stats'>
 <div data-reveal><b data-count='40'>0</b><span>Junkers on the dirt</span></div>
 <div data-reveal style='--d:100ms'><b data-count='1'>0</b><span>Last rig standing</span></div>
 <div data-reveal style='--d:200ms'><b data-count='0'>0</b><span>Brakes allowed</span></div>
-</section>
-<section class='crash' id='crash'>
-<div class='stage' id='stage'>
-<h2 class='crash-title in' id='crashTitle'>Two rigs. One lane.</h2>
-<div class='flash' id='flash'></div>
-<div class='world' id='world'>
-<div class='car' id='carA'></div>
-<div class='car flip' id='carB'></div>
-<div class='car big flip' id='carC'></div>
-</div>
-<canvas id='fx' aria-hidden='true'></canvas>
-<div class='road'></div>
-</div>
 </section>
 <section class='section' id='derby'>
 <h2 data-reveal>Built from scrap.<br>Run until it dies.</h2>
@@ -101,6 +99,7 @@
 <small>Fan-made concept. Not affiliated with or endorsed by Lucasfilm or Disney.</small>
 </footer>
 <script src='script.js'></script>
+<script src='car-art.js'></script>
 <script src='crash.js'></script>
 </body>
 </html>
